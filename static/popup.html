@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MirrorFit</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="popup__header">
+        <p class="popup__eyebrow">MirrorFit</p>
+        <h1>Move with the video.</h1>
+        <p class="popup__copy">
+          Turn on the skeleton overlay, then fine-tune the look without leaving the page.
+        </p>
+      </header>
+
+      <section class="popup__panel">
+        <button id="toggle-extension" class="popup__button" type="button">Enable MirrorFit</button>
+
+        <label class="popup__field">
+          <span>Skeleton color</span>
+          <input id="color" type="color" value="#39ff88" />
+        </label>
+
+        <label class="popup__field">
+          <span>Opacity</span>
+          <input id="opacity" type="range" min="0.1" max="1" step="0.05" value="0.85" />
+        </label>
+
+        <label class="popup__field">
+          <span>Line thickness</span>
+          <input id="line-width" type="range" min="1" max="12" step="1" value="4" />
+        </label>
+
+        <label class="popup__checkbox">
+          <input id="mirror-mode" type="checkbox" checked />
+          <span>Mirror mode</span>
+        </label>
+
+        <label class="popup__checkbox">
+          <input id="messages-enabled" type="checkbox" checked />
+          <span>Encouragement messages</span>
+        </label>
+      </section>
+    </main>
+
+    <script src="./popup.js"></script>
+  </body>
+</html>
