@@ -1,0 +1,290 @@
+Product Requirements Document (PRD)
+
+Product Name
+MirrorFit
+
+---
+
+1. Overview
+
+MirrorFit is a browser extension that overlays a real-time, customizable stick-figure skeleton of the user (via webcam) on top of any webpage. It allows users to visually align their body with instructors in workout, dance, or yoga videos without needing a physical mirror.
+
+The product also provides lightweight, real-time encouragement messages when user movement is detected, creating a more engaging and motivating experience.
+
+The system runs fully client-side using MediaPipe for pose tracking. No backend or API costs are required.
+
+---
+
+2. Goals
+
+Primary Goal
+- Enable users to visually compare their body posture with on-screen video content in real time
+
+Secondary Goals
+- Provide light motivational feedback during movement
+- Create a visually appealing and shareable experience
+- Keep the system lightweight, fast, and fully client-side
+- Build a simple MVP that can be shipped quickly
+
+---
+
+3. Target Users
+
+- People following:
+  - workout videos
+  - yoga sessions
+  - dance tutorials
+- Users without access to a mirror
+- Users who want a more engaging at-home workout experience
+
+---
+
+4. Core User Experience
+
+User Flow
+
+1. User installs extension
+2. Opens a video (e.g., YouTube)
+3. Clicks extension icon → “Enable MirrorFit”
+4. Grants webcam permission
+5. A floating skeleton overlay appears
+6. User adjusts:
+   - position
+   - size
+   - style
+7. User starts moving
+8. Encouragement messages appear dynamically
+9. User aligns movement with instructor visually
+
+---
+
+5. Key Features
+
+5.1 Pose Tracking
+- Real-time body tracking via webcam
+- Skeleton rendered using key landmarks (arms, legs, torso)
+- Smooth motion with jitter reduction
+
+---
+
+5.2 Floating Overlay
+- Transparent canvas overlay
+- Always on top of webpage
+- Works across scrolling and resizing
+
+---
+
+5.3 Customization Controls
+
+Visual Controls
+- Color picker (default: neon green)
+- Opacity slider (0–100%)
+- Line thickness slider
+
+Layout Controls
+- Drag to reposition
+- Resize (scale up/down)
+- Snap-to-center option
+
+Behavior Controls
+- Mirror mode (flip horizontally)
+- Toggle skeleton visibility
+
+---
+
+5.4 Encouragement Messaging System
+
+Description
+- Displays short, positive messages when user movement is detected
+
+Movement Detection
+- Track key landmarks (wrists, shoulders, hips)
+- Compute frame-to-frame movement distance
+- Apply smoothing over recent frames
+- Trigger when movement exceeds threshold
+
+Trigger Logic
+- Activate when user transitions from still → moving
+- Enforce cooldown (5–10 seconds) between messages
+
+Message Behavior
+- Randomly select from predefined message pool
+- Display duration: ~2 seconds
+- Animate:
+  - fade in
+  - slight scale or bounce
+  - fade out
+
+Message Types
+
+Fitness-Oriented
+- “Let’s go”
+- “Good movement”
+- “Stay with it”
+- “Nice form”
+
+Playful
+- “Main character energy”
+- “You’re cooking”
+- “We love effort”
+
+Optional Future Mode (Sarcastic)
+- “That rep had personality”
+- “Your knees have opinions”
+
+UI Behavior
+- Display near top or near skeleton
+- Non-blocking, minimal visual interference
+
+Controls
+- Toggle: Encouragement messages ON/OFF
+
+---
+
+5.5 UI Panel
+- Small floating control panel
+- Minimizable
+- Includes:
+  - style controls
+  - behavior toggles
+  - message toggle
+
+---
+
+6. Non-Goals (MVP)
+
+- No pose correctness scoring
+- No video content analysis
+- No AI coaching or feedback
+- No multi-person tracking
+- No backend services
+- No audio feedback
+
+---
+
+7. Technical Requirements
+
+7.1 Platform
+- Chrome Extension (Manifest V3)
+
+---
+
+7.2 Core Technologies
+- MediaPipe Pose Landmarker
+- JavaScript / TypeScript
+- Canvas or WebGL for rendering
+- Optional: React for UI panel
+
+---
+
+7.3 Architecture
+
+Components
+
+1. Content Script
+   - Inject overlay into webpage
+   - Manage DOM positioning
+
+2. Webcam Module
+   - Access user camera
+   - Stream frames
+
+3. Pose Engine
+   - Run MediaPipe pose detection
+   - Output landmark coordinates
+
+4. Renderer
+   - Draw skeleton on canvas
+   - Apply visual styles
+
+5. Movement Detector
+   - Compute motion score
+   - Apply smoothing
+   - Trigger events
+
+6. Message System
+   - Manage message pool
+   - Handle timing and cooldown
+   - Trigger animations
+
+7. UI Controller
+   - Handle user interaction (drag, resize, settings)
+
+---
+
+7.4 Performance Requirements
+- Target: ≥ 24 FPS
+- Low latency (<100ms perceived delay)
+- Stable tracking without flicker
+- Efficient message rendering
+
+---
+
+7.5 Permissions
+- camera
+- activeTab
+- scripting
+
+---
+
+8. UX / Design Principles
+
+- Zero learning curve → works instantly
+- Minimal UI → avoid blocking video
+- Visually satisfying → smooth motion and clean rendering
+- Encouraging but not distracting
+- User always in control
+
+---
+
+9. MVP Milestones
+
+Phase 1 (Core Prototype)
+- Webcam capture
+- Pose detection
+- Skeleton rendering
+
+Phase 2 (Overlay System)
+- Inject floating canvas
+- Drag and resize
+- Basic controls
+
+Phase 3 (Messaging Feature)
+- Movement detection
+- Message triggering
+- Basic animation
+
+Phase 4 (Polish & Launch)
+- Smooth motion
+- UI refinement
+- Performance optimization
+- Test on YouTube
+- Package extension
+
+---
+
+10. Future Enhancements
+
+- Ghost trail (motion history visualization)
+- Style presets (neon, minimal, cyberpunk)
+- Dual mode (skeleton + faint camera overlay)
+- Recording and sharing clips
+- Light posture feedback system
+- Personalized message tone (serious / playful)
+
+---
+
+11. Success Criteria
+
+- Users can activate within 10 seconds
+- Users can align skeleton easily with video
+- Messages feel motivating, not annoying
+- Smooth real-time tracking
+- Visually appealing demo quality
+- Users are willing to share clips/screenshots
+
+---
+
+Final Note
+
+MirrorFit succeeds by combining simplicity, visual clarity, and light emotional feedback. The encouragement system adds personality without introducing complexity, making the product more engaging while remaining easy to build.
